@@ -39,7 +39,7 @@ export default function Page404() {
           <Box
             component="img"
             src="/assets/illustrations/illustration_404.svg"
-            sx={{ height: 260, mx: 'auto', my: { xs: 5, sm: 10 } }}
+            sx={{ height: 200, mx: 'auto', my: { xs: 5, sm: 5 } }}
           />
 
           <Button to="/" size="large" variant="contained" component={RouterLink}>

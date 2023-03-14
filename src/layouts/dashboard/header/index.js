@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Box, Stack, AppBar, Toolbar, IconButton } from '@mui/material';
+import { Link } from 'react-router-dom';
+
+import { Box, Stack, AppBar, Toolbar, IconButton, Typography } from '@mui/material';
 // utils
 import { bgBlur } from '../../../utils/cssStyles';
 // components
 import Iconify from '../../../components/iconify';
 //
-import Searchbar from './Searchbar';
 import AccountPopover from './AccountPopover';
-import LanguagePopover from './LanguagePopover';
 import NotificationsPopover from './NotificationsPopover';
 
 // ----------------------------------------------------------------------
@@ -57,7 +57,12 @@ export default function Header({ onOpenNav }) {
           <Iconify icon="eva:menu-2-fill" />
         </IconButton>
 
-        <Searchbar />
+        <Typography component="div" sx={{ display: { sm: 'block', md: 'none' } }}>
+          <Link to="/" style={{ fontSize: '25px', fontWeight: '800', textDecoration: 'none', color: '#2065D1' }}>
+            Analyzer
+          </Link>
+        </Typography>
+
         <Box sx={{ flexGrow: 1 }} />
 
         <Stack
@@ -68,7 +73,6 @@ export default function Header({ onOpenNav }) {
             sm: 1,
           }}
         >
-          <LanguagePopover />
           <NotificationsPopover />
           <AccountPopover />
         </Stack>
