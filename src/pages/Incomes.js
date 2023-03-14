@@ -15,6 +15,7 @@ import { DatePicker } from '@mui/x-date-pickers';
 export default function Types() {
   const [category, setCategory] = React.useState('');
   const [date, setDate] = React.useState('');
+  const [incomes, setIncomes] = React.useState([]);
 
   const handleChange = (event) => {
     setCategory(event.target.value);
@@ -56,6 +57,17 @@ export default function Types() {
       });
   };
 
+  React.useEffect(() => {
+    fetch('http://localhost:5000/incomes')
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setIncomes(data.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [incomes.length]);
   return (
     <Container>
       <Box sx={{ width: '100%' }}>
