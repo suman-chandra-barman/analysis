@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { Avatar, Button, Container, Grid, ListItem, ListItemAvatar, ListItemText, TextField } from '@mui/material';
+import { Button, Container, Grid, TextField } from '@mui/material';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -9,13 +9,15 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import AddReactionIcon from '@mui/icons-material/AddReaction';
 import { DatePicker } from '@mui/x-date-pickers';
+import IncomeCard from '../sections/@dashboard/incomeData/IncomeCard';
+import { totalIncome } from '../components/income-data/TotalIncome';
 
 export default function Types() {
   const [category, setCategory] = React.useState('');
   const [date, setDate] = React.useState('');
   const [incomes, setIncomes] = React.useState([]);
+  const [loading, setLoading] = React.useState(true);
 
   const handleChange = (event) => {
     setCategory(event.target.value);
@@ -31,6 +33,7 @@ export default function Types() {
       source,
       amount,
       date,
+      time: new Date(),
       category,
       reference,
     };
@@ -48,6 +51,7 @@ export default function Types() {
         console.log(data);
         if (data?.data) {
           form.reset();
+          setLoading(false);
           setDate('');
           setCategory('');
         }
@@ -67,7 +71,9 @@ export default function Types() {
       .catch((error) => {
         console.error(error);
       });
-  }, [incomes.length]);
+  }, [loading]);
+  const totalIncomeAmount = totalIncome(incomes);
+
   return (
     <Container>
       <Box sx={{ width: '100%' }}>
@@ -80,7 +86,7 @@ export default function Types() {
         sx={{ width: '100%', p: 2, backgroundColor: 'rgba(145, 158, 171, 0.12)', borderRadius: '9px' }}
       >
         <Typography variant="h5" gutterBottom>
-          Total Income : $50000
+          Total Income : ${totalIncomeAmount}
         </Typography>
       </Box>
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} sx={{ my: 1 }}>
@@ -137,17 +143,15 @@ export default function Types() {
           </Box>
         </Grid>
         <Grid item xs={6}>
+          <Box sx={{ width: '100%' }}>
+            <Typography variant="h4" textAlign="center">
+              History
+            </Typography>
+          </Box>
           <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <ListItem sx={{ boxShadow: '1' }}>
-                <ListItemAvatar>
-                  <Avatar>
-                    <AddReactionIcon />
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText primary="Salary" secondary="Jan 9, 2014" />
-              </ListItem>
-            </Grid>
+            {incomes.map((income) => (
+              <IncomeCard key={income._id} income={income} />
+            ))}
           </Grid>
         </Grid>
       </Grid>
