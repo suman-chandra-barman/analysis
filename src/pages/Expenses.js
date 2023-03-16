@@ -121,13 +121,13 @@ export default function Types() {
                 label="Category"
                 onChange={handleChange}
               >
-                <MenuItem value={'salary'}>Food</MenuItem>
-                <MenuItem value={'investments'}>Home Rent</MenuItem>
-                <MenuItem value={'business'}>Education Cost</MenuItem>
-                <MenuItem value={'freelancing'}>Shopping</MenuItem>
-                <MenuItem value={'youtube'}>Electricity</MenuItem>
-                <MenuItem value={'facebook'}>Glossary</MenuItem>
-                <MenuItem value={'Others'}>Others</MenuItem>
+                <MenuItem value={'food'}>Food</MenuItem>
+                <MenuItem value={'home'}>Home Rent</MenuItem>
+                <MenuItem value={'education'}>Education</MenuItem>
+                <MenuItem value={'shopping'}>Shopping</MenuItem>
+                <MenuItem value={'grocery'}>Grocery</MenuItem>
+                <MenuItem value={'pocket money'}>Pocket Money</MenuItem>
+                <MenuItem value={'others'}>Others</MenuItem>
               </Select>
             </FormControl>
             <TextField
