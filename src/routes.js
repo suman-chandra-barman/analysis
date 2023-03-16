@@ -8,6 +8,7 @@ import LoginPage from './pages/LoginPage';
 import Page404 from './pages/Page404';
 import DashboardAppPage from './pages/DashboardAppPage';
 import Incomes from './pages/Incomes';
+import Expenses from './pages/Expenses';
 
 // ----------------------------------------------------------------------
 
@@ -21,6 +22,7 @@ export default function Router() {
         { path: 'app', element: <DashboardAppPage /> },
         { path: 'user', element: <UserPage /> },
         { path: 'incomes', element: <Incomes /> },
+        { path: 'expenses', element: <Expenses /> },
       ],
     },
     {

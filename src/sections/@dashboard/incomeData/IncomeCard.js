@@ -2,11 +2,15 @@ import { Avatar, Box, Grid, IconButton, ListItem, ListItemAvatar, Typography } f
 import React from 'react';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { deleteIncomeData } from './deleteData';
 
-function IncomeCard({ income }) {
-  const { source, date, amount, reference, category } = income;
+function IncomeCard({ income, loading, setLoading, path }) {
+  const { _id, source, date, amount, reference, category } = income;
 
-  const todayDate = new Date(date).toISOString().slice(0, 10);
+  let todayDate;
+  if (date) {
+    todayDate = new Date(date).toISOString().substring(0, 10);
+  }
   return (
     <Grid item xs={12}>
       <ListItem sx={{ boxShadow: '1' }}>
@@ -32,7 +36,12 @@ function IncomeCard({ income }) {
           <Typography>{reference}</Typography>
         </Box>
         <Box marginLeft="auto">
-          <IconButton aria-label="delete" size="large" sx={{ color: '#ff5252' }}>
+          <IconButton
+            onClick={() => deleteIncomeData(_id, loading, setLoading, path)}
+            aria-label="delete"
+            size="large"
+            sx={{ color: '#ff5252' }}
+          >
             <DeleteIcon fontSize="inherit" />
           </IconButton>
         </Box>

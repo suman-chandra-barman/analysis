@@ -42,7 +42,7 @@ export default function Types() {
     };
     console.log(incomeData);
     // data store in database
-    fetch('http://localhost:5000/incomes', {
+    fetch('http://localhost:5000/expenses', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -65,7 +65,7 @@ export default function Types() {
   };
 
   React.useEffect(() => {
-    fetch('http://localhost:5000/incomes')
+    fetch('http://localhost:5000/expenses')
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -81,7 +81,7 @@ export default function Types() {
     <Container>
       <Box sx={{ width: '100%' }}>
         <Typography variant="h3" gutterBottom>
-          Incomes
+          Expenses
         </Typography>
       </Box>
       <Box
@@ -89,13 +89,13 @@ export default function Types() {
         sx={{ width: '100%', p: 2, backgroundColor: 'rgba(145, 158, 171, 0.12)', borderRadius: '9px' }}
       >
         <Typography variant="h5" gutterBottom>
-          Total Income : ${totalIncomeAmount}
+          Total Expenses : ${totalIncomeAmount}
         </Typography>
       </Box>
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} sx={{ my: 1 }}>
         <Grid item xs={6}>
           <Box component="form" onSubmit={handleIncome}>
-            <TextField name="source" fullWidth id="demo-helper-text-aligned-no-helper" label="Income source" required />
+            <TextField name="source" fullWidth id="demo-helper-text-aligned-no-helper" label="Cost Title" required />
             <TextField
               name="amount"
               sx={{ mt: '10px' }}
@@ -121,12 +121,12 @@ export default function Types() {
                 label="Category"
                 onChange={handleChange}
               >
-                <MenuItem value={'salary'}>Salary</MenuItem>
-                <MenuItem value={'investments'}>Investments</MenuItem>
-                <MenuItem value={'business'}>Business</MenuItem>
-                <MenuItem value={'freelancing'}>Freelancing</MenuItem>
-                <MenuItem value={'youtube'}>Youtube</MenuItem>
-                <MenuItem value={'facebook'}>Facebook</MenuItem>
+                <MenuItem value={'salary'}>Food</MenuItem>
+                <MenuItem value={'investments'}>Home Rent</MenuItem>
+                <MenuItem value={'business'}>Education Cost</MenuItem>
+                <MenuItem value={'freelancing'}>Shopping</MenuItem>
+                <MenuItem value={'youtube'}>Electricity</MenuItem>
+                <MenuItem value={'facebook'}>Glossary</MenuItem>
                 <MenuItem value={'Others'}>Others</MenuItem>
               </Select>
             </FormControl>
@@ -141,7 +141,7 @@ export default function Types() {
               required
             />
             <Button type="submit" variant="contained" sx={{ my: '10px', px: 4, py: 1 }}>
-              Add income
+              Add Expense
             </Button>
           </Box>
         </Grid>
@@ -153,7 +153,7 @@ export default function Types() {
           </Box>
           <Grid container spacing={2}>
             {incomes.map((income) => (
-              <IncomeCard key={income._id} income={income} loading={loading} setLoading={setLoading} path="incomes" />
+              <IncomeCard key={income._id} income={income} loading={loading} setLoading={setLoading} path="expenses" />
             ))}
           </Grid>
         </Grid>
