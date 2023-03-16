@@ -5,7 +5,6 @@ export const IncomeContext = React.createContext();
 function IncomeProvider({ children }) {
   const [incomesData, setIncomesData] = React.useState([]);
   const [expenseData, setExpenseData] = React.useState([]);
-  const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
     fetch('http://localhost:5000/incomes')
@@ -29,6 +28,7 @@ function IncomeProvider({ children }) {
         console.error(error);
       });
   }, []);
+  console.log(expenseData);
   const data = { incomesData, expenseData };
   return <IncomeContext.Provider value={data}>{children}</IncomeContext.Provider>;
 }

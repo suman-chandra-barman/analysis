@@ -5,12 +5,19 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { deleteIncomeData } from './deleteData';
 
 function IncomeCard({ income, loading, setLoading, path }) {
-  const { _id, source, date, amount, reference, category } = income;
+  const { _id, source, date, amount, reference, category, time } = income;
 
   let todayDate;
   if (date) {
     todayDate = new Date(date).toISOString().substring(0, 10);
   }
+
+  // time
+  const dateObject = new Date(time);
+  const hours = String(dateObject.getHours()).padStart(2, '0');
+  const minutes = String(dateObject.getMinutes()).padStart(2, '0');
+  const seconds = String(dateObject.getSeconds()).padStart(2, '0');
+  const formattedTime = `${hours}:${minutes}:${seconds}`;
   return (
     <Grid item xs={12}>
       <ListItem sx={{ boxShadow: '1' }}>
@@ -30,6 +37,9 @@ function IncomeCard({ income, loading, setLoading, path }) {
             </Grid>
             <Grid item>
               <Typography>{todayDate}</Typography>
+            </Grid>
+            <Grid item>
+              <Typography>Time:{formattedTime}</Typography>
             </Grid>
           </Grid>
 

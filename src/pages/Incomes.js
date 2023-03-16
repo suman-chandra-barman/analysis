@@ -127,7 +127,7 @@ export default function Types() {
                 <MenuItem value={'freelancing'}>Freelancing</MenuItem>
                 <MenuItem value={'youtube'}>Youtube</MenuItem>
                 <MenuItem value={'facebook'}>Facebook</MenuItem>
-                <MenuItem value={'Others'}>Others</MenuItem>
+                <MenuItem value={'others'}>Others</MenuItem>
               </Select>
             </FormControl>
             <TextField

@@ -4,13 +4,7 @@ import { useTheme } from '@mui/material/styles';
 import { useContext } from 'react';
 import { Grid, Container, Typography } from '@mui/material';
 // sections
-import {
-  AppCurrentVisits,
-  AppWebsiteVisits,
-  AppWidgetSummary,
-  AppCurrentSubject,
-  AppConversionRates,
-} from '../sections/@dashboard/app';
+import { AppCurrentVisits, AppWebsiteVisits, AppWidgetSummary, AppConversionRates } from '../sections/@dashboard/app';
 import { IncomeContext } from '../context/IncomeProvider';
 import { totalIncome } from '../components/income-data/TotalIncome';
 
@@ -20,7 +14,7 @@ export default function DashboardAppPage() {
   const { incomesData, expenseData } = useContext(IncomeContext);
   const theme = useTheme();
 
-  // variables
+  // expenses variables
   let totalFoods = 0;
   let totalHomeRent = 0;
   let totalGrocery = 0;
@@ -29,6 +23,14 @@ export default function DashboardAppPage() {
   let totalOthers = 0;
   let totalPocketMoney = 0;
 
+  // incomes variables
+  let totalSalary = 0;
+  let totalInvestments = 0;
+  let totalFreelancing = 0;
+  let totalBusiness = 0;
+  let totalYoutube = 0;
+  let totalFacebook = 0;
+  let totalIncomeOthers = 0;
   // total calculation
   const totalIncomeAmount = totalIncome(incomesData);
   const totalExpenseAmount = totalIncome(expenseData);
@@ -54,6 +56,24 @@ export default function DashboardAppPage() {
       totalOthers += +expense.amount;
     }
   });
+  // category incomes
+  incomesData.forEach((income) => {
+    if (income.category === 'salary') {
+      totalSalary += +income.amount;
+    } else if (income.category === 'investments') {
+      totalInvestments += +income.amount;
+    } else if (income.category === 'freelancing') {
+      totalFreelancing += +income.amount;
+    } else if (income.category === 'business') {
+      totalBusiness += +income.amount;
+    } else if (income.category === 'youtube') {
+      totalYoutube += +income.amount;
+    } else if (income.category === 'facebook') {
+      totalFacebook += +income.amount;
+    } else {
+      totalIncomeOthers += +income.amount;
+    }
+  });
 
   return (
     <>
@@ -63,7 +83,7 @@ export default function DashboardAppPage() {
 
       <Container maxWidth="xl">
         <Typography variant="h4" sx={{ mb: 5 }}>
-          Good Morning, Sam Barman
+          Hi, Sam Barman
         </Typography>
 
         <Grid container spacing={3}>
@@ -91,21 +111,20 @@ export default function DashboardAppPage() {
 
           <Grid item xs={12} md={6} lg={8}>
             <AppWebsiteVisits
-              title="Cost Analyze"
+              title="Analyze"
               subheader="(+43%) than last year"
               chartLabels={[
+                '05/01/2022',
+                '06/01/2022',
+                '07/01/2022',
+                '08/01/2022',
+                '09/01/2022',
+                '10/01/2022',
+                '11/01/2022',
+                '12/01/2022',
                 '01/01/2023',
                 '02/01/2023',
                 '03/01/2023',
-                '04/01/2023',
-                '05/01/2023',
-                '06/01/2023',
-                '07/01/2023',
-                '08/01/2023',
-                '09/01/2023',
-                '10/01/2023',
-                '11/01/2023',
-                '12/01/2023',
               ]}
               chartData={[
                 {
@@ -129,7 +148,68 @@ export default function DashboardAppPage() {
               ]}
             />
           </Grid>
+          <Grid item xs={12} md={6} lg={4}>
+            <AppCurrentVisits
+              title="Total transactions"
+              chartData={[
+                { label: 'Total Balance', value: saving },
+                { label: 'Total Income', value: totalIncomeAmount },
+                { label: 'Total Expense', value: totalExpenseAmount },
+              ]}
+              chartColors={[theme.palette.primary.main, theme.palette.warning.main, theme.palette.error.main]}
+            />
+          </Grid>
+          <Grid item xs={12} md={6} lg={8}>
+            <AppConversionRates
+              title="Lat one year Incomes"
+              subheader="(+10%) than last year"
+              chartData={[
+                { label: 'Salary', value: totalSalary },
+                { label: 'Investments', value: totalInvestments },
+                { label: 'Freelancing', value: totalFreelancing },
+                { label: 'Business', value: totalBusiness },
+                { label: 'Youtube', value: totalYoutube },
+                { label: 'Facebook', value: totalFacebook },
+                { label: 'Others', value: totalOthers },
+              ]}
+            />
+          </Grid>
 
+          <Grid item xs={12} md={6} lg={4}>
+            <AppCurrentVisits
+              title="Incomes Analysis by category"
+              chartData={[
+                { label: 'salary', value: totalSalary },
+                { label: 'investments', value: totalInvestments },
+                { label: 'freelancing', value: totalFreelancing },
+                { label: 'business', value: totalBusiness },
+                { label: 'youtube', value: totalYoutube },
+                { label: 'facebook', value: totalFacebook },
+                { label: 'others', value: totalIncomeOthers },
+              ]}
+              chartColors={[
+                theme.palette.primary.main,
+                theme.palette.info.main,
+                theme.palette.warning.main,
+                theme.palette.error.main,
+              ]}
+            />
+          </Grid>
+          <Grid item xs={12} md={6} lg={8}>
+            <AppConversionRates
+              title="Lat one year expenses"
+              subheader="(+43%) than last year"
+              chartData={[
+                { label: 'Foods', value: totalFoods },
+                { label: 'Home Rent', value: totalHomeRent },
+                { label: 'Grocery', value: totalGrocery },
+                { label: 'Shopping', value: totalShopping },
+                { label: 'Education', value: totalEducation },
+                { label: 'Pocket Money', value: totalPocketMoney },
+                { label: 'Others', value: totalOthers },
+              ]}
+            />
+          </Grid>
           <Grid item xs={12} md={6} lg={4}>
             <AppCurrentVisits
               title="Cost Analysis by category"
@@ -148,38 +228,6 @@ export default function DashboardAppPage() {
                 theme.palette.warning.main,
                 theme.palette.error.main,
               ]}
-            />
-          </Grid>
-
-          <Grid item xs={12} md={6} lg={8}>
-            <AppConversionRates
-              title="Conversion Rates"
-              subheader="(+43%) than last year"
-              chartData={[
-                { label: 'Italy', value: 400 },
-                { label: 'Japan', value: 430 },
-                { label: 'China', value: 448 },
-                { label: 'Canada', value: 470 },
-                { label: 'France', value: 540 },
-                { label: 'Germany', value: 580 },
-                { label: 'South Korea', value: 690 },
-                { label: 'Netherlands', value: 1100 },
-                { label: 'United States', value: 1200 },
-                { label: 'United Kingdom', value: 1380 },
-              ]}
-            />
-          </Grid>
-
-          <Grid item xs={12} md={6} lg={4}>
-            <AppCurrentSubject
-              title="Current Subject"
-              chartLabels={['English', 'History', 'Physics', 'Geography', 'Chinese', 'Math']}
-              chartData={[
-                { name: 'Series 1', data: [80, 50, 30, 40, 100, 20] },
-                { name: 'Series 2', data: [20, 30, 40, 80, 20, 80] },
-                { name: 'Series 3', data: [44, 76, 78, 13, 43, 10] },
-              ]}
-              chartColors={[...Array(6)].map(() => theme.palette.text.secondary)}
             />
           </Grid>
         </Grid>
